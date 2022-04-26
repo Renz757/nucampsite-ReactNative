@@ -37,7 +37,7 @@ function RenderCampsite(props) {
                 .then(endState => console.log(endState.finished ? 'finished' : 'canceled'));
         },
         onPanResponderEnd: (e, gestureState) => {
-            console.log('pan responder end', gestureState);
+             console.log('pan responder end', gestureState);
             if (recognizeDrag(gestureState)) {
                 Alert.alert(
                     'Add Favorite',
@@ -58,8 +58,18 @@ function RenderCampsite(props) {
                 );
             }
             return true;
+        },
+        onPanResponderEnd: (e, gestureState) => {
+            if (recognizeComment(gestureState)) {
+                this.toggleModal()
+            }
         }
+
     });
+
+    function recognizeComment({ dx })  {
+        return (dx < -200) ? true : false;
+    }
 
     if (campsite) {
         return (
